@@ -10,6 +10,8 @@ const Menu = styled.ul`
   color: #444;
   border-bottom: 1px solid #e1e1e1;
   font-family: sans-serif;
+  display: flex;
+  justify-content: space-between;
   
   li {
     letter-spacing: 2px;
@@ -30,11 +32,16 @@ const Menu = styled.ul`
 
 `
 
-const Navbar = () => ( 
+const Navbar = ({ auth }) => ( 
   <Menu>
-    <li><Link  to="/" >Home</Link></li>
-    <li><Link  to="/about" >About</Link></li>
-    <li><Link  to="/profile" >Profile</Link></li>
+    <div>
+      <li><Link  to="/" >Home</Link></li>
+      <li><Link  to="/about" >About</Link></li>
+    </div>
+    <div>
+      <li><Link  to="/login" >Login</Link></li>
+      <li><Link  to="/profile" >Profile</Link></li>
+    </div>
   </Menu>
 )
 
