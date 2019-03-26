@@ -43,9 +43,9 @@ const Navbar = () => {
             <li><Link to="/about" >About</Link></li>
           </div>
           <div>
-            { context.state.isLoggedIn() ?
+            { context.state.isLoggedIn ?
               <Fragment>
-                <li><Link to="/" onClick={context.logIn}>Logout</Link></li>
+                <li><span onClick={context.logOut()}>Logout</span></li>
                 <li><Link to="/profile" >Profile</Link></li>
               </Fragment>
               :

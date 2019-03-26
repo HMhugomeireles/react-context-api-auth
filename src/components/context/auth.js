@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { isAuthenticated } from './../actions/auth'
+//import { isAuthenticated } from './../actions/auth'
 
 
 export const AuthContext = React.createContext();
@@ -8,19 +8,17 @@ export class AuthProvider extends Component {
   constructor() {
     super();
     this.state = {
-      isLoggedIn: isAuthenticated,
+      isLoggedIn: false,
     }
     this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
   }
 
-  logIn() {
-    this.setState( state => {
-      console.log(state)
-    })
+  logIn = () => {
+    this.setState({isLoggedIn: true})
   }
 
-  logOut() {
+  logOut = () => {
     this.setState({ isLoggedIn: false })
   }
 

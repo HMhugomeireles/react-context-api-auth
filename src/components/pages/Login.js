@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
+import { Redirect } from 'react-router-dom'
 
 import * as Context from './../context'
 
@@ -50,16 +51,27 @@ export default class Login extends Component {
      password: '' 
     }
     this.userLogin = this.userLogin.bind(this);
+    this.handleInputsChanges = this.handleInputsChanges.bind(this);
   }
+
+  handleInputsChanges(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })    
+  }
+
   userLogin(event) {
     event.preventDefault();
     
     const User = {
-      username: event.target.value,
-      password: event.target.value,
+      username: this.state.username,
+      password: this.state.password,
     }
 
-    console.log(User);
+    console.log(User)
+    // Make request to api for make login
+
+    //this.props.history.push('/')
     
   }
 
@@ -67,20 +79,29 @@ export default class Login extends Component {
     return (
       <Div>
         <Context.AuthContext.Consumer>
-          {(context) => console.log(context) || (
-            <form onSubmit={this.userLogin}>
-              <h3>Login</h3>
-  
-              <Container>
-                <label htmlFor="uname"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required />
-            
-                <label htmlFor="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required />
-            
-                <button onClick={context.logIn}>Login</button>
-              </Container>
-            </form>
+          {(context) =>  (
+            <Fragment>
+            { context.isLoggedIn ?
+                <Redirect to='/profile' /> 
+              :
+                <form onSubmit={this.userLogin}>
+                  <h3>Login</h3>
+      
+                  <Container>
+                    <label htmlFor="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="username" required 
+                      
+                    />
+                
+                    <label htmlFor="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="password" required 
+                    />
+                
+                    <button onClick={context.logIn}>Login</button>
+                  </Container>
+                </form>
+            }
+            </Fragment>
           )}
         </Context.AuthContext.Consumer>
       </Div>
