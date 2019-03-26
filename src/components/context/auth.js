@@ -1,44 +1,32 @@
 import React, { Component } from 'react'
 import { isAuthenticated } from './../actions/auth'
 
-const DEFAULT_STATE = {
-  isLoggedIn: false,
-};
 
-export const AuthContext = React.createContext(DEFAULT_STATE);
+export const AuthContext = React.createContext();
 
-export default class AuthProvider extends Component {
-  state = DEFAULT_STATE;
+export class AuthProvider extends Component {
+  state = {
+    isLoggedIn: isAuthenticated,
+  };
 
-
-  logIn = () => {
-    this.setState({
-      isLoggedIn: isAuthenticated
-    }) 
+  logIn() {
+    this.setState({ isLoggedIn: true })
   }
 
-  logOut = () => {
-    this.setState({
-      isLoggedIn: false
-    })
-  }
-
-  isLoggedIn() {
-    return this.state.isLoggedIn
+  logOut() {
+    this.setState({ isLoggedIn: false })
   }
 
   render() {
     return (
-      <AuthContext.Provider
-        value={{
-          ...this.state,
-          logIn: this.logIn,
-          logOut: this.logOut,
-          isLoggedIn: this.isLoggedIn
-        }}
-      >
-        {this.props.children}            
+      <AuthContext.Provider value={{
+        state: this.state,
+        logIn: this.logIn,
+        logOut: this.logOut
+      }}>
+        { this.props.children }
       </AuthContext.Provider>
     )
   }
 }
+

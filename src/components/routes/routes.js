@@ -29,24 +29,21 @@ const Main = styled.div`
 
 
 const Routes = () => (
-  <BrowserRouter>
-    <Context.Auth.default>
-    {console.log(Context.Auth)}
-      { ({ Auth }) => console.log("ss") || (
-        <Fragment>
-          <Navbar />
-          <Main>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/about" component={About} />
-              <PrivateRoute path="/profile" component={Profile} />
-              <Route exact path="/login" component={Login}  />
-            </Switch>
-          </Main>
-        </Fragment>
-      )}
-    </Context.Auth.default>
-  </BrowserRouter>
-);
+  <Context.AuthProvider>
+    <BrowserRouter>
+      <Fragment>
+        <Navbar />
+        <Main>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/about" component={About} />
+            <PrivateRoute path="/profile" component={Profile} />
+            <Route exact path="/login" component={Login}  />
+          </Switch>
+        </Main>
+      </Fragment>
+    </BrowserRouter>
+  </Context.AuthProvider>
+  );
 
 export default Routes;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
+import * as Context from './../context'
 
 const Div = styled.div`
   width: 60%;
@@ -42,10 +43,6 @@ const Container = styled.div`
 `
 
 export default class Login extends Component {
-  state = {
-    
-  }
-
   userLogin(event) {
     event.preventDefault();
     
@@ -54,19 +51,23 @@ export default class Login extends Component {
   render() {
     return (
       <Div>
-        <form onSubmit={() => {}}>
-          <h3>Login</h3>
-
-          <Container>
-            <label htmlFor="uname"><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="uname" required />
-        
-            <label htmlFor="psw"><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required />
-        
-            <button type="submit">Login</button>
-          </Container>
-        </form>     
+        <Context.AuthContext.Consumer>
+          {(context) => console.log(context.state.isLoggedIn()) || (
+            <form onSubmit={this.userLogin()}>
+              <h3>Login</h3>
+  
+              <Container>
+                <label htmlFor="uname"><b>Username</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" required />
+            
+                <label htmlFor="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required />
+            
+                <button onClick={context.logIn}>Login</button>
+              </Container>
+            </form>
+          )}
+        </Context.AuthContext.Consumer>
       </Div>
     )
   }

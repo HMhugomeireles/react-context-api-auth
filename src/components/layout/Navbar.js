@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import * as Context from './../context'
 
 const Menu = styled.ul`
   list-style: none;
@@ -32,17 +33,29 @@ const Menu = styled.ul`
 
 `
 
-const Navbar = ({ auth }) => ( 
-  <Menu>
-    <div>
-      <li><Link  to="/" >Home</Link></li>
-      <li><Link  to="/about" >About</Link></li>
-    </div>
-    <div>
-      <li><Link  to="/login" >Login</Link></li>
-      <li><Link  to="/profile" >Profile</Link></li>
-    </div>
-  </Menu>
-)
+const Navbar = () => {
+  return (
+    <Context.AuthContext.Consumer>
+      {(context) => (
+        <Menu>
+          <div>
+            <li><Link to="/" >Home</Link></li>
+            <li><Link to="/about" >About</Link></li>
+          </div>
+          <div>
+            { context.state.isLoggedIn() ?
+              <Fragment>
+                <li><Link to="/" onClick={context.logIn}>Logout</Link></li>
+                <li><Link to="/profile" >Profile</Link></li>
+              </Fragment>
+              :
+              <li><Link to="/login" >Login</Link></li>
+            }
+          </div>
+        </Menu>
+      )}
+    </Context.AuthContext.Consumer>
+  )
+}
 
 export default Navbar;

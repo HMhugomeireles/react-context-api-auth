@@ -1,3 +1,3 @@
-import * as Auth from './auth'
+import { AuthContext, AuthProvider} from './auth'
 
-export { Auth }
+export { AuthContext, AuthProvider }
