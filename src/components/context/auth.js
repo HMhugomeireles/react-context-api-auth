@@ -5,12 +5,19 @@ import { isAuthenticated } from './../actions/auth'
 export const AuthContext = React.createContext();
 
 export class AuthProvider extends Component {
-  state = {
-    isLoggedIn: isAuthenticated,
-  };
+  constructor() {
+    super();
+    this.state = {
+      isLoggedIn: isAuthenticated,
+    }
+    this.logIn = this.logIn.bind(this);
+    this.logOut = this.logOut.bind(this);
+  }
 
   logIn() {
-    this.setState({ isLoggedIn: true })
+    this.setState( state => {
+      console.log(state)
+    })
   }
 
   logOut() {

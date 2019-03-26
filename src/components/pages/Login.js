@@ -43,8 +43,23 @@ const Container = styled.div`
 `
 
 export default class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+     username: '',
+     password: '' 
+    }
+    this.userLogin = this.userLogin.bind(this);
+  }
   userLogin(event) {
     event.preventDefault();
+    
+    const User = {
+      username: event.target.value,
+      password: event.target.value,
+    }
+
+    console.log(User);
     
   }
 
@@ -52,8 +67,8 @@ export default class Login extends Component {
     return (
       <Div>
         <Context.AuthContext.Consumer>
-          {(context) => console.log(context.state.isLoggedIn()) || (
-            <form onSubmit={this.userLogin()}>
+          {(context) => console.log(context) || (
+            <form onSubmit={this.userLogin}>
               <h3>Login</h3>
   
               <Container>
