@@ -10,7 +10,6 @@ export class AuthProvider extends Component {
   };
 
   logIn = ({ username, password }) => {
-    console.log(username, password);
     localStorage.setItem('token', 'lojisdbcv09817234t012hvboqweducyg01u4vb01yv3')
     this.setState({ isLoggedIn: true })
   }
