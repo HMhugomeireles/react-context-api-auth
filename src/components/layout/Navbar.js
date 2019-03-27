@@ -29,7 +29,13 @@ const Menu = styled.ul`
   a:hover {
     color: #999;
   }
-  
+
+  li > span {
+    cursor: pointer;
+  } 
+  li > span:hover {
+    color: #999;
+  } 
 
 `
 
@@ -45,7 +51,7 @@ const Navbar = () => {
           <div>
             { context.state.isLoggedIn ?
               <Fragment>
-                <li><span onClick={context.logOut()}>Logout</span></li>
+                <li><span onClick={ () => context.logOut()}>Logout</span></li>
                 <li><Link to="/profile" >Profile</Link></li>
               </Fragment>
               :

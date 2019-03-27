@@ -1,24 +1,22 @@
 import React, { Component } from 'react'
-//import { isAuthenticated } from './../actions/auth'
+import { isAuthenticated } from './../actions/auth'
 
 
 export const AuthContext = React.createContext();
 
 export class AuthProvider extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isLoggedIn: false,
-    }
-    this.logIn = this.logIn.bind(this);
-    this.logOut = this.logOut.bind(this);
-  }
+  state = {
+    isLoggedIn: false,
+  };
 
-  logIn = () => {
-    this.setState({isLoggedIn: true})
+  logIn = ({ username, password }) => {
+    console.log(username, password);
+    localStorage.setItem('token', 'lojisdbcv09817234t012hvboqweducyg01u4vb01yv3')
+    this.setState({ isLoggedIn: true })
   }
 
   logOut = () => {
+    localStorage.removeItem('token');
     this.setState({ isLoggedIn: false })
   }
 

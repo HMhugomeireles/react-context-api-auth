@@ -15,12 +15,16 @@ import Profile from './../pages/protect/Profile'
 
 
 const PrivateRoute = ({ component: Component, ...rest}) => (
-  <Route {...rest} render={props => console.log(props.auth) || (
-    props.auth ? 
-      ( <Component {...rest} /> ) 
-    :
-      ( <Redirect to={{ pathname: '/', state: { from: props.location } }} /> )
-  )}/>
+  <Context.AuthContext.Consumer>
+  {({ state }) => 
+      console.log(state) ||
+      <Route {...rest} render={ (props) => state.isLoggedIn ?
+        <Component {...props}/>
+        :
+        <Redirect to="/" />
+      } />
+  }
+  </Context.AuthContext.Consumer>
 );
 
 const Main = styled.div`

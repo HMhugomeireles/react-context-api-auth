@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
-import { Redirect } from 'react-router-dom'
 
 import * as Context from './../context'
 
@@ -50,59 +49,48 @@ export default class Login extends Component {
      username: '',
      password: '' 
     }
-    this.userLogin = this.userLogin.bind(this);
-    this.handleInputsChanges = this.handleInputsChanges.bind(this);
-  }
-
-  handleInputsChanges(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    })    
-  }
-
-  userLogin(event) {
-    event.preventDefault();
-    
-    const User = {
-      username: this.state.username,
-      password: this.state.password,
-    }
-
-    console.log(User)
-    // Make request to api for make login
-
-    //this.props.history.push('/')
-    
   }
 
   render() {
     return (
       <Div>
         <Context.AuthContext.Consumer>
-          {(context) =>  (
-            <Fragment>
-            { context.isLoggedIn ?
-                <Redirect to='/profile' /> 
-              :
-                <form onSubmit={this.userLogin}>
+          {({ logIn }) =>  {
+            
+            const handleFormSubmition = (event) =>{
+              event.preventDefault();
+              logIn({ 
+                username: this.state.username,
+                password: this.state.password });
+
+                this.props.history.push('/profile');
+            }
+
+            return (
+              <Fragment>
+                <form onSubmit={handleFormSubmition}>
                   <h3>Login</h3>
-      
                   <Container>
                     <label htmlFor="uname"><b>Username</b></label>
                     <input type="text" placeholder="Enter Username" name="username" required 
-                      
+                      value={this.state.username}
+                      onChange={ e => this.setState({ username: e.target.value })}
                     />
                 
                     <label htmlFor="psw"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="password" required 
+                      value={this.state.password}
+                      onChange={ e => this.setState({ password: e.target.value})}
                     />
                 
-                    <button onClick={context.logIn}>Login</button>
+                    <button type="submit">Login</button>
                   </Container>
                 </form>
-            }
-            </Fragment>
-          )}
+              </Fragment>
+            )
+
+           }
+          }
         </Context.AuthContext.Consumer>
       </Div>
     )
